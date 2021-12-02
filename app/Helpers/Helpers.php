@@ -10,13 +10,6 @@ function formatPrice($value){
     return 'Rp '. number_format($value,0,',','.');
 }
 
-function userRole($level = null){
-    $role_name = ($level ?? Auth::user()->level) == User::$admin ? 'admin' : (($level ?? Auth::user()->level) == User::$kades ? 'kades' : 'staff');
-
-    return $role_name;
-}
-
-
 function authUser(){
     return Auth::user();
 }
@@ -44,9 +37,9 @@ function uploadFile($base_64_foto, $folder){
     try {
         $foto = base64_decode($base_64_foto['data']);
         $folderName = 'images/'.$folder;
-        
+
         if (!file_exists($folderName)) {
-            mkdir($folderName, 0755, true); 
+            mkdir($folderName, 0755, true);
         }
 
         $safeName = time() . $base_64_foto['name'];
