@@ -17,6 +17,9 @@ class CreateItemsTable extends Migration
             $table->id();
             $table->string('name', 100);
             $table->string('brand', 100);
+            $table->decimal('purchase_price');
+            $table->decimal('selling_price');
+            $table->string('image', 200)->nullable()->default(null);
             $table->timestamps();
         });
     }
