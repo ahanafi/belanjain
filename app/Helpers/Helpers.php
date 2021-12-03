@@ -55,7 +55,7 @@ function uploadFile($base_64_foto, $folder){
 }
 
 function isActive($param){
-    return Request::route()->getPrefix() == '/'.$param ? 'active' : '';
+    return request()->route()->getPrefix() === '/'.$param ? 'active' : '';
 }
 
 function showFor($roles)

@@ -16,21 +16,33 @@
                 </a>
             </li>
 
+            <li class="menu-header">Data Master</li>
+
+            <li class="nav-item dropdown {{ isActive('items.*') }}">
+                <a href="{{ route('items.index') }}" class="nav-link">
+                    <i class="fas fa-cubes"></i>
+                    <span>Barang</span>
+                </a>
+            </li>
+            <li class="nav-item dropdown {{ isActive('customers.*') }}">
+                <a href="{{ route('customers.index') }}" class="nav-link">
+                    <i class="fas fa-users"></i>
+                    <span>Pelanggan</span>
+                </a>
+            </li>
+            <li class="nav-item dropdown {{ isActive('transactions.*') }}">
+                <a href="{{ route('transactions.index') }}" class="nav-link">
+                    <i class="fas fa-exchange-alt"></i>
+                    <span>Transaksi</span>
+                </a>
+            </li>
+
+            <li class="menu-header">Manajemen Pengguna</li>
             <li class="nav-item dropdown {{ isActive('user') }}">
                 <a href="#" class="nav-link">
                     <i class="fas fa-user"></i>
                     <span>Pengguna</span>
                 </a>
-            </li>
-
-            <li class="menu-header">Starter</li>
-            <li class="nav-item dropdown">
-                <a href="#" class="nav-link has-dropdown" data-toggle="dropdown"><i class="fas fa-columns"></i> <span>Menu Dropdown</span></a>
-                <ul class="dropdown-menu">
-                    <li><a class="nav-link" href="layout-default.html">Dropdown 1</a></li>
-                    <li><a class="nav-link" href="layout-transparent.html">Dropdown 2</a></li>
-                    <li><a class="nav-link" href="layout-top-navigation.html">Dropdown 3</a></li>
-                </ul>
             </li>
         </ul>
 

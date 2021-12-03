@@ -10,12 +10,13 @@
     <ul class="navbar-nav navbar-right">
         <li class="dropdown"><a href="#" data-toggle="dropdown"
                                 class="nav-link dropdown-toggle nav-link-lg nav-link-user">
-                {{-- <img alt="image" src="../assets/img/avatar/avatar-1.png" class="rounded-circle mr-1"> --}}
-                <div class="d-sm-none d-lg-inline-block">Hi, {{Auth::user()->nama}}</div>
+                <img alt="image" src="http://[::1]/codepos-app/uploads/user/1dadb10576865070a01a094e51c67fb6.jpg" class="rounded-circle mr-1">
+                <div class="d-sm-none d-lg-inline-block">Hi, <b>{{ auth()->user()->name }}</b></div>
             </a>
             <div class="dropdown-menu dropdown-menu-right">
-                <a href="features-profile.html" class="dropdown-item has-icon">
-                    <i class="far fa-user"></i> Profile
+                <a href="#" class="dropdown-item has-icon">
+                    <i class="far fa-user"></i>
+                    <span>Profile</span>
                 </a>
                 <div class="dropdown-divider"></div>
                 <a class="dropdown-item has-icon text-danger" href="{{ route('logout') }}"
