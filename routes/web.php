@@ -26,7 +26,7 @@ Route::get('/', function () {
 Route::middleware(['auth'])->group(function () {
     Route::get('/dashboard', [HomeController::class, 'index'])->name('dashboard');
 
-    Route::resource('items', ItemController::class);
+    Route::resource('items', ItemController::class)->except('show');
     Route::resource('customers', CustomerController::class);
     Route::resource('transactions', TransactionController::class);
 });

@@ -17,7 +17,7 @@
                 Silahkan isi form di bawah untuk menambahkan data barang baru.
             </p>
 
-            <form action="{{ route('items.store') }}" method="post">
+            <form action="{{ route('items.store') }}" method="post" enctype="multipart/form-data">
                 @csrf
                 <div class="row">
                     <div class="col-12 col-md-6 col-lg-6">
@@ -31,6 +31,8 @@
                                 <x-input type="number" is-required="true" field-name="purchase_price" placeholder="Harga beli" label="Harga beli"></x-input>
 
                                 <x-input type="number" is-required="true" field-name="selling_price" placeholder="Harga jual" label="Harga jual"></x-input>
+
+                                <x-input type="file" field-name="image" label="Foto"></x-input>
 
                                 <div class="text-right">
                                     <button name="submit" class="btn btn-primary mr-1" type="submit">Simpan Data</button>

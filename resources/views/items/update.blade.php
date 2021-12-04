@@ -29,9 +29,9 @@
 
                                 <x-input type="text" is-required="true" field-name="brand" value="{{ $item->brand }}" placeholder="Merk" label="Merk"></x-input>
 
-                                <x-input type="number" is-required="true" field-name="purchase_price" value="{{ $item->purchase_price }}" placeholder="Harga beli" label="Harga beli"></x-input>
+                                <x-input type="number" is-required="true" field-name="purchase_price" value="{{ removeDecimal($item->purchase_price) }}" placeholder="Harga beli" label="Harga beli"></x-input>
 
-                                <x-input type="number" is-required="true" field-name="selling_price" value="{{ $item->selling_price }}" placeholder="Harga jual" label="Harga jual"></x-input>
+                                <x-input type="number" is-required="true" field-name="selling_price" value="{{ removeDecimal($item->selling_price) }}" placeholder="Harga jual" label="Harga jual"></x-input>
 
                                 <x-input type="file" field-name="image" label="Foto"></x-input>
 

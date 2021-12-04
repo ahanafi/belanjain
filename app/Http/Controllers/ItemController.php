@@ -2,84 +2,56 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StoreItemRequest;
 use App\Models\Item;
-use Illuminate\Http\Request;
 
 class ItemController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function index()
     {
-        //
+        return view('items.index');
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function create()
     {
-        //
+        return view('items.create');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
+    public function store(StoreItemRequest $request)
     {
-        //
+        if (Item::create($request->validated())) {
+            $message = setFlashMessage('success', 'insert', 'barang');
+        } else {
+            $message = setFlashMessage('error', 'insert', 'barang');
+        }
+
+        return redirect()->route('items.index')->with('message', $message);
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Item  $item
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Item $item)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Item  $item
-     * @return \Illuminate\Http\Response
-     */
     public function edit(Item $item)
     {
-        //
+        return view('items.update', compact('item'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Item  $item
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, Item $item)
+    public function update(StoreItemRequest $request, Item $item)
     {
-        //
+        if ($item->update($request->validated())) {
+            $message = setFlashMessage('success', 'update', 'barang');
+        } else {
+            $message = setFlashMessage('error', 'update', 'barang');
+        }
+
+        return redirect()->route('items.index')->with('message', $message);
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\Item  $item
-     * @return \Illuminate\Http\Response
-     */
     public function destroy(Item $item)
     {
-        //
+        if ($item->delete()) {
+            $message = setFlashMessage('success', 'delete', 'barang');
+        } else {
+            $message = setFlashMessage('error', 'delete', 'barang');
+        }
+
+        return redirect()->route('items.index')->with('message', $message);
     }
 }
