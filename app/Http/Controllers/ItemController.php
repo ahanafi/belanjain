@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreItemRequest;
 use App\Models\Item;
+use App\Services\UploadFileService;
 
 class ItemController extends Controller
 {
@@ -19,7 +20,10 @@ class ItemController extends Controller
 
     public function store(StoreItemRequest $request)
     {
-        if (Item::create($request->validated())) {
+        $validatedRequest = $request->validated();
+        $validatedRequest['image'] = UploadFileService::uploadIfExist('image', 'items');
+
+        if (Item::create($validatedRequest)) {
             $message = setFlashMessage('success', 'insert', 'barang');
         } else {
             $message = setFlashMessage('error', 'insert', 'barang');
@@ -35,7 +39,9 @@ class ItemController extends Controller
 
     public function update(StoreItemRequest $request, Item $item)
     {
-        if ($item->update($request->validated())) {
+        $validatedRequest = $request->validated();
+        $validatedRequest['image'] = UploadFileService::replaceIfExist('image', $item->image, 'items');
+        if ($item->update($validatedRequest)) {
             $message = setFlashMessage('success', 'update', 'barang');
         } else {
             $message = setFlashMessage('error', 'update', 'barang');
