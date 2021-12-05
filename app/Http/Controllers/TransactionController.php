@@ -2,84 +2,52 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StoreTransactionRequest;
 use App\Models\Transaction;
-use Illuminate\Http\Request;
 
 class TransactionController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function index()
     {
-        //
+        $number = Transaction::generateNumber();
+        return view('transactions.index', compact('number'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
+    public function store(StoreTransactionRequest $request)
     {
-        //
+        if(Transaction::create($request->except('_token'))) {
+            $message = setFlashMessage('success', 'create', 'transaksi');
+        } else {
+            $message = setFlashMessage('error', 'create', 'transaksi');
+        }
+
+        return redirect()->back()->with('message', $message);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Transaction  $transaction
-     * @return \Illuminate\Http\Response
-     */
     public function show(Transaction $transaction)
     {
         //
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Transaction  $transaction
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Transaction $transaction)
+    public function update(StoreTransactionRequest $request, Transaction $transaction)
     {
-        //
+        if($transaction->update($request->except('_token'))) {
+            $message = setFlashMessage('success', 'update', 'transaksi');
+        } else {
+            $message = setFlashMessage('error', 'update', 'transaksi');
+        }
+
+        return redirect()->back()->with('message', $message);
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Transaction  $transaction
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, Transaction $transaction)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\Transaction  $transaction
-     * @return \Illuminate\Http\Response
-     */
     public function destroy(Transaction $transaction)
     {
-        //
+        if($transaction->delete()) {
+            $message = setFlashMessage('success', 'delete', 'transaksi');
+        } else {
+            $message = setFlashMessage('error', 'delete', 'transaksi');
+        }
+
+        return redirect()->back()->with('message', $message);
     }
 }

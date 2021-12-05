@@ -5,6 +5,7 @@ namespace App\Http\Controllers\API;
 use App\Http\Controllers\Controller;
 use App\Models\Customer;
 use App\Models\Item;
+use App\Models\Transaction;
 use Illuminate\Support\Facades\Storage;
 
 class MasterDataController extends Controller
@@ -42,7 +43,7 @@ class MasterDataController extends Controller
             ->addColumn('action', function ($customer) {
                 return "
                     <a href='#'
-                       onclick='showFormCustomer(`".$customer->id."`, `".$customer->name."`, `".$customer->phone."`)'
+                       onclick='showFormCustomer(`" . $customer->id . "`, `" . $customer->name . "`, `" . $customer->phone . "`)'
                        class='btn btn-light'
                     >
                         <i class='fa fa-pencil-alt'></i>
@@ -62,5 +63,28 @@ class MasterDataController extends Controller
             'status' => 'success',
             'data' => $customer
         ], 200);
+    }
+
+    public function transactions()
+    {
+        $transactions = Transaction::latest()->get();
+
+        return datatables()
+            ->of($transactions)
+            ->addColumn('action', function ($transaction) {
+                return "
+                    <a href='#'
+                        class='btn btn-light'
+                        onclick='showFormTransaction(`" . $transaction->id . "`, `" . $transaction->number . "`, `" . $transaction->shopping_date . "`)'
+                    >
+                        <i class='fa fa-pencil-alt'></i>
+                    </a>
+                    <a href='#' class='btn btn-danger'
+                        onclick='confirmDelete(`transactions`, `" . $transaction->id . "`)'>
+                        <i class='fa fa-trash'></i>
+                    </a>";
+            })
+            ->rawColumns(['action'])
+            ->toJson();
     }
 }

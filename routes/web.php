@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\API\MasterDataController;
 use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ItemController;
@@ -27,6 +28,6 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/dashboard', [HomeController::class, 'index'])->name('dashboard');
 
     Route::resource('items', ItemController::class)->except('show');
-    Route::resource('customers', CustomerController::class);
-    Route::resource('transactions', TransactionController::class);
+    Route::resource('customers', CustomerController::class)->except(['create', 'edit']);
+    Route::resource('transactions', TransactionController::class)->except(['create']);
 });

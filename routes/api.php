@@ -23,6 +23,8 @@ Route::name('api.')
 
                 Route::get('/customers', [MasterDataController::class, 'customers'])->name('customers');
                 Route::get('/customers/{customer}', [MasterDataController::class, 'showCustomer'])->name('customers.show');
+
+                Route::get('/transactions', [MasterDataController::class, 'transactions'])->name('transactions');
             });
     });
 

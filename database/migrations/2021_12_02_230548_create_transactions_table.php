@@ -17,7 +17,8 @@ class CreateTransactionsTable extends Migration
             $table->id();
             $table->string('number', 10)->unique();
             $table->boolean('status')->default(0);
-            $table->decimal('total_payment')->unsigned();
+            $table->date('shopping_date');
+            $table->decimal('total_payment')->unsigned()->default(0);
             $table->timestamps();
         });
     }

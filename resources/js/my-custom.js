@@ -119,3 +119,27 @@ window.showFormCustomer = function (id = '', name = '', phone = '') {
     formCustomer.setAttribute('action', actionURL);
     $("#modal-form-customer").modal('show');
 }
+
+window.showFormTransaction = async function (id = '', number = '', shoppingDate = '') {
+    const inputNumber = document.querySelector('#transaction-number');
+    const inputShoppingDate = document.querySelector('#shopping-date');
+    const formTransaction = document.querySelector('#form-transaction');
+    const inputMethod = document.querySelector('#form-transaction input[name=_method]');
+    let actionURL = '/transactions';
+
+    if(number !== '' && id !== '') {
+        //Do edit
+        inputNumber.value = number;
+        inputShoppingDate.value = shoppingDate;
+        actionURL += `/${id}`;
+        inputMethod.value = 'PUT';
+    } else {
+        // Do create
+        inputNumber.value = document.querySelector('#latest-number').value;
+        inputShoppingDate.value = '';
+        inputMethod.value = 'POST';
+    }
+
+    formTransaction.setAttribute('action', actionURL);
+    $("#modal-form-transaction").modal('show');
+}
