@@ -68,16 +68,21 @@ window.confirmLogout = function () {
             form.setAttribute("method", "POST");
             form.setAttribute("action", actionURL);
 
-            const inputMethod = document.createElement("input");
+            const inputToken = document.createElement("input");
             const token = document.querySelector("meta[name=csrf-token]").getAttribute('content');
-            inputMethod.setAttribute("type", "hidden");
-            inputMethod.setAttribute("name", "_token");
-            inputMethod.setAttribute("value", token);
+            inputToken.setAttribute("type", "hidden");
+            inputToken.setAttribute("name", "_token");
+            inputToken.setAttribute("value", token);
 
-            form.appendChild(inputMethod);
+            const inputMethod = document.createElement("input");
+            inputMethod.setAttribute("type", "hidden");
+            inputMethod.setAttribute("name", "_method");
+            inputMethod.setAttribute("value", "POST");
+
+            form.appendChild(inputToken);
+            form.appendChild(inputMethod)
 
             form.setAttribute('action', actionURL);
-
             body.appendChild(form);
             form.submit();
         }

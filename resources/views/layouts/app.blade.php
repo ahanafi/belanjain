@@ -45,10 +45,19 @@
 
 <script>
     $(document).ready(function () {
-        $('select').select2();
+        $('.select2').select2();
     })
-
 </script>
+@if(session()->has('message'))
+    <script type="text/javascript">
+        Swal.fire({
+            title: '{{ ucwords(session()->get('message.type')) }}',
+            text: '{{ session()->get('message.text') }}',
+            icon: '{{ session()->get('message.type') }}',
+            timer: {{ session()->has('message.timer') ? session()->get('message.timer') : 2000 }}
+        });
+    </script>
+@endif
 
 <!-- Page Specific JS File -->
 {{-- <script src="{{asset('admin/js/page/index.js')}}"></script> --}}
