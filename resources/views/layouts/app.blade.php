@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, shrink-to-fit=no" name="viewport">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>{{config('app.name')}}</title>
 
     <!-- Template CSS -->
@@ -43,45 +44,6 @@
 <script src="{{asset('plugin/datatables/datatables.js')}}"></script>
 
 <script>
-    function deleteModel(deleteUrl, tableId) {
-        Swal.fire({
-            title: "Warning",
-            text: "Yakin menghapus data?",
-            icon: 'warning',
-            showCancelButton: true,
-            confirmButtonColor: '#169b6b',
-            cancelButtonColor: '#d33',
-            confirmButtonText: 'Ya',
-            cancelButtonText: 'Tidak'
-        }).then((result) => {
-            if (result.isConfirmed) {
-                $.ajax({
-                    url: deleteUrl,
-                    dataType: "Json",
-                    data: {"_token": "{{ csrf_token() }}"},
-                    method: "delete",
-                    success: function (data) {
-                        console.log(data)
-                        if (data.code == 1) {
-                            Swal.fire(
-                                'Berhasil',
-                                data.message,
-                                'success'
-                            )
-                        } else {
-                            Swal.fire({
-                                icon: 'error',
-                                title: 'Oops...',
-                                text: data.message
-                            })
-                        }
-                        $('#' + tableId).DataTable().ajax.reload();
-                    }
-                })
-            }
-        })
-    }
-
     $(document).ready(function () {
         $('select').select2();
     })

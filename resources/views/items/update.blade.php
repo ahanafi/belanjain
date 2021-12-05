@@ -37,7 +37,7 @@
 
                                 <div class="text-right">
                                     <button name="submit" class="btn btn-primary mr-1" type="submit">Simpan Data</button>
-                                    <button name="reset" class="btn btn-secondary" type="reset">Reset</button>
+                                    <a href="{{ route('items.index') }}" class="btn btn-light">Kembali</a>
                                 </div>
                             </div>
                         </div>

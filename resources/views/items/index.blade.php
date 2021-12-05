@@ -25,7 +25,19 @@
                     <div class="card card-primary">
                         <div class="card-body">
                             <div class="table-responsive">
-
+                                <table class="table table-striped" id="items-data">
+                                    <thead>
+                                    <tr>
+                                        <th>No.</th>
+                                        <th>Foto Barang</th>
+                                        <th>Nama Barang</th>
+                                        <th>Merk</th>
+                                        <th>Harga Beli</th>
+                                        <th>Harga Jual</th>
+                                        <th>Aksi</th>
+                                    </tr>
+                                    </thead>
+                                </table>
                             </div>
                         </div>
                     </div>
@@ -33,4 +45,49 @@
             </div>
         </div>
     </section>
+
+    @push('scripts')
+        <script>
+            $("#items-data").dataTable({
+                responsive: true,
+                processing: true,
+                serverSide: true,
+                ajax: "{{ route('api.master-data.items') }}",
+                columns: [
+                    {
+                        data: 'id',
+                        name: "No.",
+                        className: 'text-center',
+                        orderable: false,
+                        searchable: false,
+                        render: function (data, type, row, meta) {
+                            return meta.row + meta.settings._iDisplayStart + 1;
+                        }
+                    },
+                    {
+                        data: 'image',
+                        className: 'text-center',
+                    },
+                    {
+                        data: 'name',
+                    },
+                    {
+                        data: 'brand',
+                    },
+                    {
+                        data: 'purchase_price',
+                    },
+                    {
+                        data: 'selling_price',
+                    },
+                    {
+                        data: 'action',
+                        orderable: false,
+                        searchable: false,
+                        className: 'text-center'
+                    },
+                ]
+            });
+        </script>
+    @endpush
 @endsection
