@@ -20,6 +20,9 @@ Route::name('api.')
             ->prefix('master-data')
             ->group(function () {
                 Route::get('/items', [MasterDataController::class, 'items'])->name('items');
+
+                Route::get('/customers', [MasterDataController::class, 'customers'])->name('customers');
+                Route::get('/customers/{customer}', [MasterDataController::class, 'showCustomer'])->name('customers.show');
             });
     });
 

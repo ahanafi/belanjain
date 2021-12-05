@@ -12,7 +12,7 @@ if (!function_exists('setFlashMessage')) {
         $messageType = "";
         $messageStatus = ($type === 'success') ? " berhasil " : " gagal ";
 
-        if (in_array($actionType, ['insert', 'add'])) {
+        if (in_array($actionType, ['insert', 'create', 'add'])) {
             $messageType = " disimpan!";
         } else if (in_array($actionType, ['update', 'edit'])) {
             $messageType = " diperbarui!";

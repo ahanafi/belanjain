@@ -10,6 +10,7 @@ window.confirmDelete = function (dataType, dataId) {
             showConfirmButton: true,
             showCancelButton: true,
             cancelButtonText: 'Batal',
+            confirmButtonText: 'Ya, Hapus sekarang'
         })
             .then((willDelete) => {
                 if (willDelete.isConfirmed) {
@@ -87,4 +88,34 @@ window.confirmLogout = function () {
             form.submit();
         }
     });
+}
+
+window.showFormCustomer = function (id = '', name = '', phone = '') {
+    const inputName = document.querySelector('#customer-name');
+    const inputPhone = document.querySelector('#customer-phone');
+    const formCustomer = document.querySelector('#form-customer');
+    const inputMethod = document.querySelector('#form-customer input[name=_method]');
+    let actionURL = '/customers';
+
+    $("#modal-form-customer").on('show.bs.modal', function() {
+        inputName.classList.remove('is-invalid');
+        inputPhone.classList.remove('is-invalid');
+        document.querySelectorAll('span.invalid-feedback').forEach((el) => el.remove());
+    });
+
+    if(name !== '' && id !== '') {
+        //Do edit
+        inputName.value = name;
+        inputPhone.value = phone;
+        actionURL += `/${id}`;
+        inputMethod.value = 'PUT';
+    } else {
+        // Do create
+        inputName.value = '';
+        inputPhone.value = '';
+        inputMethod.value = 'POST';
+    }
+
+    formCustomer.setAttribute('action', actionURL);
+    $("#modal-form-customer").modal('show');
 }
