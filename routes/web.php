@@ -4,6 +4,7 @@ use App\Http\Controllers\API\MasterDataController;
 use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ItemController;
+use App\Http\Controllers\OrderController;
 use App\Http\Controllers\TransactionController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -29,5 +30,14 @@ Route::middleware(['auth'])->group(function () {
 
     Route::resource('items', ItemController::class)->except('show');
     Route::resource('customers', CustomerController::class)->except(['create', 'edit']);
+
+    Route::prefix('transactions')
+        ->name('transactions.')
+        ->group(function () {
+            Route::get('/{transaction}/input-order', [OrderController::class, 'create'])->name('order.create');
+            Route::post('/{transaction}/store-order', [OrderController::class, 'store'])->name('order.store');
+            Route::delete('/delete-order/{order}', [OrderController::class, 'destroy'])->name('order.delete');
+        });
+
     Route::resource('transactions', TransactionController::class)->except(['create']);
 });

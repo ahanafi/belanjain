@@ -23,6 +23,7 @@ class CreateOrderItemsTable extends Migration
                 ->on('items')
                 ->onUpdate('cascade')
                 ->onDelete('cascade');
+            $table->decimal('price')->unsigned();
             $table->integer('qty')->default(1)->unsigned();
             $table->timestamps();
         });

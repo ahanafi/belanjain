@@ -23,4 +23,19 @@ class Transaction extends Model
 
         return "TRX-00001";
     }
+
+    public function isDone()
+    {
+        return (int) $this->status === 1;
+    }
+
+    /*
+     * Relations
+     * */
+    public function orders()
+    {
+        return $this->hasMany(Order::class, 'transaction_id', 'id')
+            ->withSum('orderItems', 'qty')
+            ->with(['orderItems', 'customer']);
+    }
 }

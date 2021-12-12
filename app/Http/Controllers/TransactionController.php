@@ -2,7 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StoreOrderRequest;
 use App\Http\Requests\StoreTransactionRequest;
+use App\Models\Customer;
+use App\Models\Item;
+use App\Models\Order;
 use App\Models\Transaction;
 
 class TransactionController extends Controller

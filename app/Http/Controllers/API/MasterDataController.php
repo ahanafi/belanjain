@@ -72,7 +72,13 @@ class MasterDataController extends Controller
         return datatables()
             ->of($transactions)
             ->addColumn('action', function ($transaction) {
-                return "
+                $inputOrderButton = "
+                    <a href='".route('transactions.order.create', $transaction->id)."' class='btn btn-info'>
+                        <i class='fa fa-shopping-cart'></i>
+                        <span>INPUT ORDER</span>
+                    </a>";
+
+                $actionButton = "
                     <a href='#'
                         class='btn btn-light'
                         onclick='showFormTransaction(`" . $transaction->id . "`, `" . $transaction->number . "`, `" . $transaction->shopping_date . "`)'
@@ -83,6 +89,12 @@ class MasterDataController extends Controller
                         onclick='confirmDelete(`transactions`, `" . $transaction->id . "`)'>
                         <i class='fa fa-trash'></i>
                     </a>";
+
+                if (!$transaction->isDone()) {
+                    return $inputOrderButton . $actionButton;
+                }
+
+                return $actionButton;
             })
             ->rawColumns(['action'])
             ->toJson();
